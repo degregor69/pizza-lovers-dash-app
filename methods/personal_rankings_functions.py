@@ -8,15 +8,6 @@ def create_last_50_df():
     df_3 = df_2.merge(df_merge['comment_rate'], how='left', on=['name', 'address'])
     return df_3
 
-def create_last_50_boolean_column():
-    df = create_last_50_df()
-    df['last_50_better?'] = np.where(df['comment_rate'] == df['average_rate'], "Equal", np.where(df['comment_rate'] >= df['average_rate'], "Better", "Worse"))
-    return df
-
-def last_50_better_analysis():
-    df = create_last_50_boolean_column()
-    return df.groupby(['last_50_better?'])['last_50_better?'].count()
-
 def create_personal_ranking_df():
 
     df = create_last_50_df()
@@ -46,3 +37,6 @@ def top_x_by_score_dynamic_rate(x):
 
 def personal_ranking_df_sorted_by_dynamic_rank():
     return create_personal_ranking_df().sort_values(by=['last_score'])
+
+def top_20_personal_ranking():
+    return personal_ranking_df_sorted_by_dynamic_rank().head(20)
