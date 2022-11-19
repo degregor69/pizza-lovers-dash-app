@@ -1,4 +1,5 @@
 import dash
+import dash_bootstrap_components as dbc
 from dash import html, dcc, callback, Input, Output
 import plotly.express as px
 
@@ -17,38 +18,74 @@ df_graph = df.drop(['address', 'city'], axis=1)
 dash.register_page(__name__)
 
 layout = html.Div(children=[
-    html.H1(children='ANALYSES GÉNÉRALES'),
-    html.H2(children="TOP 5 DES RESTAURANTS"),
-    html.H4(children='SELON LEUR NOTE'),
-    html.Div(
-        dash.dcc.Dropdown(options= df_graph['postal_code'].sort_values().unique(), id="district-filter-1", value = df_graph['postal_code'].min())),
-        dcc.Graph(id='top-5-average-rate-by-district-graph-with-dd'),
+    dbc.Row(html.H4(children='ANALYSES GÉNÉRALES')),
+    dbc.Row([
+        dbc.Col([
+             html.Div([
+                html.H4(children="TOP 5 DES RESTAURANTS"),
+                html.H6(children='SELON LEUR NOTE'),
+                html.Div(
+                    dash.dcc.Dropdown(options= df_graph['postal_code'].sort_values().unique(), id="district-filter-1", value = df_graph['postal_code'].min())),
+                    dcc.Graph(id='top-5-average-rate-by-district-graph-with-dd'),
+            ]),
+        ], width=4),
 
-    html.H2(children="TOP 5"),
-    html.H4(children='SELON LE NOMBRE DE COMMENTAIRES'),
-    html.Div(
-        dash.dcc.Dropdown(options= df_graph['postal_code'].sort_values().unique(), id="district-filter-2", value = df_graph['postal_code'].min())),
-        dcc.Graph(id='top-5-nb-reviews-by-district-graph-with-dd'),
+        dbc.Col([
+            html.Div([
+                html.H4(children='TOP 8 DES ARRONDISSEMENTS'),
+                html.H6(children='SELON LE NOMBRE DE RESTAURANTS'),
+                dcc.Graph(figure= px.pie(top_8_by_nb(df_graph), values=top_8_by_nb(df_graph).values, names=top_8_by_nb(df_graph).index, template='plotly_dark')),
+            ])
+        ], width=4),
 
-    html.H2(children='TOP 8 DES ARRONDISSEMENTS'),
-    html.H4(children='SELON LE NOMBRE DE RESTAURANTS'),
-    dcc.Graph(figure= px.pie(top_8_by_nb(df_graph), values=top_8_by_nb(df_graph).values, names=top_8_by_nb(df_graph).index, template='plotly_dark')),
+        dbc.Col([
+            html.Div([
+                html.H4(children='TOP 5 DES ARRONDISSEMENTS'),
+                html.H6(children='SELON LEUR NOTE'),
+                dcc.Graph(
+                    figure= px.bar(top_5_district_by_average_rate(df_graph), 
+                    x= top_5_district_by_average_rate(df_graph).index , y= top_5_district_by_average_rate(df_graph).values, barmode="group",
+                    template='plotly_dark', range_y=[top_5_district_by_average_rate(df_graph).min() - 0.2 ,top_5_district_by_average_rate(df_graph).max()+0.2]),
+                ),
+            ])
+        ],width=4),
+    
+    ]),
 
-    html.H2(children='TOP 5 DES ARRONDISSEMENTS'),
-    html.H4(children='SELON LEUR NOTE'),
-    dcc.Graph(
-        figure= px.bar(top_5_district_by_average_rate(df_graph), 
-        x= top_5_district_by_average_rate(df_graph).index , y= top_5_district_by_average_rate(df_graph).values, barmode="group",
-        template='plotly_dark', range_y=[top_5_district_by_average_rate(df_graph).min() - 0.2 ,top_5_district_by_average_rate(df_graph).max()+0.2]),
-    ),
+    dbc.Row([
+        dbc.Col([
+            html.Div([
+                html.H4(children="TOP 5"),
+                html.H6(children='SELON LE NOMBRE DE COMMENTAIRES'),
+                html.Div(
+                dash.dcc.Dropdown(options= df_graph['postal_code'].sort_values().unique(), id="district-filter-2", value = df_graph['postal_code'].min())),
+                dcc.Graph(id='top-5-nb-reviews-by-district-graph-with-dd'),
+            ])
+        ],width = 4),
 
-    html.H2(children='TOP 5 DES ARRONDISSEMENTS'),
-    html.H3(children='SELON LE NOMBRE DE COMMENTAIRES'),
-    dcc.Graph(
-        figure= px.bar(top_5_district_by_nb_reviews(df_graph), 
-        x= top_5_district_by_nb_reviews(df_graph).index , y= top_5_district_by_nb_reviews(df_graph).values, barmode="group",
-        template='plotly_dark', range_y=[top_5_district_by_nb_reviews(df_graph).min() - 300 ,top_5_district_by_nb_reviews(df_graph).max()+ 300])
-    ),
+        dbc.Col([
+            html.Div([
+                html.Div([
+                html.H4(children='TOP 8 DES ARRONDISSEMENTS'),
+                html.H6(children='SELON LE NOMBRE DE RESTAURANTS'),
+                dcc.Graph(figure= px.pie(top_8_by_nb(df_graph), values=top_8_by_nb(df_graph).values, names=top_8_by_nb(df_graph).index, template='plotly_dark')),
+            ])
+            ])
+        ], width=4),
+
+        dbc.Col([
+            html.Div([
+                html.H4(children='TOP 5 DES ARRONDISSEMENTS'),
+                html.H6(children='SELON LE NOMBRE DE COMMENTAIRES'),
+                dcc.Graph(
+                    figure= px.bar(top_5_district_by_nb_reviews(df_graph), 
+                    x= top_5_district_by_nb_reviews(df_graph).index , y= top_5_district_by_nb_reviews(df_graph).values, barmode="group",
+                    template='plotly_dark', range_y=[top_5_district_by_nb_reviews(df_graph).min() - 300 ,top_5_district_by_nb_reviews(df_graph).max()+ 300])
+                ),
+            ])
+        ], width=4),
+    
+    ]),
 ])
 
 @callback(

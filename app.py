@@ -1,9 +1,8 @@
 import dash
 import dash_bootstrap_components as dbc
-
-
 from dash import Dash, html, dcc
-app = Dash(__name__, use_pages=True, external_stylesheets=[dbc.themes.VAPOR])
+
+app = Dash(__name__, use_pages=True, external_stylesheets=[dbc.themes.CYBORG])
 
 app.layout = html.Div([
 	html.H1('Pizza Lovers'),
