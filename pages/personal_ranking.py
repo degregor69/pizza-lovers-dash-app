@@ -11,34 +11,23 @@ from dotenv import load_dotenv
 
 dash.register_page(__name__)
 
-# df = personal_ranking_df_sorted_by_dynamic_rank()
+df = personal_ranking_df_sorted_by_dynamic_rank()
 load_dotenv()
 geo_df = add_long_lat_to_df()
-df =  px.data.carshare()
+load_dotenv()
 
-fig = go.Figure(go.Scattermapbox(
-        lat=['45.5017'],
-        lon=['-73.5673'],
-        mode='markers',
-        marker=go.scattermapbox.Marker(
-            size=14
-        ),
-        text=['Montreal'],
-    ))
+px.set_mapbox_access_token(os.getenv('MAPBOX_TOKEN'))
 
-fig.show()
+fig = px.scatter_mapbox(geo_df, lat='long', lon='lat', zoom=11)
 
 
 layout = html.Div(children=[
     html.H2(children='Nous développons des outils sur mesure !'),
     html.H3(''),
     html.H3(children="Les meilleures pizzerias par arrondissement selon notre algorithme"),
-    html.Div(
-        dcc.Graph(
-        id='example-map',
-        figure=fig
-        )
-    ),
-
+    html.Div([
+            dcc.Graph(id="graph", figure=fig)
+    ], className= "mw-50")
 ])
+
 
