@@ -20,7 +20,7 @@ df_graph = df.drop(['address', 'city'], axis=1)
 dash.register_page(__name__)
 
 layout = html.Div(children=[
-    dbc.Row(html.H4(children='ANALYSES GÉNÉRALES')),
+    dbc.Row(html.H4(children='Tableau de bord général des pizzas parisiennes')),
     dbc.Row([
         dbc.Col([
              html.Div([
