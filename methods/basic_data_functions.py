@@ -63,7 +63,7 @@ def top_8_by_nb(df):
 
 def top_20_by_average_rate(df):
     df =  df.drop(['postal_code', 'city'], axis=1)
-    return df[df['nb_of_reviews'] > 100].sort_values(by='average_rate', ascending = False).head(20)
+    return df[['name', 'average_rate', 'address']][df['nb_of_reviews'] > 100].sort_values(by='average_rate', ascending = False).head(20)
 
 def nb_pizzerias():
     return len(clean_basic_data_df(basic_data_df()))

@@ -1,9 +1,10 @@
 import dash
-from dash import html, dcc, callback, Input, Output
+from dash import html, dcc, callback, Input, Output, dash_table
+import dash_bootstrap_components as dbc
 import plotly.express as px
 
 #  from methods.basic_data_functions import df_graph_top_5_by_rating
-from methods.last_50_functions import last_50_better_analysis, have_changed_share
+from methods.last_50_functions import have_changed_share, show_repartition, top_20_by_average_rate
 
 # VARIABLES
 
@@ -11,9 +12,21 @@ dash.register_page(__name__)
 
 layout = html.Div(children=[
     html.H5(children="Nous analysons les derniers avis pour être au courant des dernières tendances."),
-    html.H3(children="Les avis récents ont-il changé leur note ? La réponse est OUI !"),
-    html.H3(children=[str(have_changed_share()) + "% " + "ont changé de note avec leurs 50 derniers commentaires."]),
-    dcc.Graph(figure= px.pie(last_50_better_analysis(), values=last_50_better_analysis().values, names=last_50_better_analysis().index, template='plotly_dark')),
+    html.H6(children="Les avis récents ont-il changé leur note ? La réponse est OUI !"),
+    html.H6(children=[str(have_changed_share()) + "% " + "ont changé de note avec leurs 50 derniers commentaires."]),
+    html.H6(children=[str(show_repartition("Better")) + "% " + "ont une meilleure note, " +  str(show_repartition("Worse")) + "% " + "en ont une moins bonne."]),
+
+      dbc.Col([
+            html.Div([
+                html.H4(children='TOP 20 DES RESTAURANTS :'),
+                html.H6(children='SELON LEUR NOTE'),
+                dash_table.DataTable(top_20_by_average_rate().to_dict('records'), 
+                    style_table={'overflowY': 'auto', 'height': '500px'},
+                    style_data={'color': 'white','backgroundColor': 'black'},
+                    style_header={'color': 'light-blue','backgroundColor': 'black'},
+                    fixed_rows={'headers': True})
+            ])
+        ], width=6),
 ])
 
 #     html.H3(children="Les meilleures pizzerias par arrondissement par avis récent"),
