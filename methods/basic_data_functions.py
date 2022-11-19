@@ -60,3 +60,14 @@ def top_5_district_by_nb_reviews(df):
 
 def top_8_by_nb(df):
     return df.groupby(['postal_code'])['name'].count().nlargest(8)
+
+def top_20_by_average_rate(df):
+    df =  df.drop(['postal_code', 'city'], axis=1)
+    return df[df['nb_of_reviews'] > 100].sort_values(by='average_rate', ascending = False).head(20)
+
+def nb_pizzerias():
+    return len(clean_basic_data_df(basic_data_df()))
+
+def average_rate_pizzerias():
+    df = clean_basic_data_df(basic_data_df())
+    return round(df['average_rate'].mean(),2)
