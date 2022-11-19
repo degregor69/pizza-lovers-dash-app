@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np 
+import re
 
 def create_last_50_df():
     df = pd.read_csv("inputs_from_processing/comments_cleaned.csv", sep='|')
@@ -27,16 +28,36 @@ def create_personal_ranking_df():
     df['last_score_rank'] = df['last_score'].rank(method='min', ascending=False)
     return df
 
-def top_x_by_score_static_rate(x):
-    df = create_personal_ranking_df()
-    return df[['name', 'address', 'postal_code' ,'average_rate','nb_of_reviews', 'average_score_rank', 'last_score_rank']].sort_values(by=['average_score_rank'], ascending=True).head(x)
+# def top_x_by_score_static_rate(x):
+#     df = create_personal_ranking_df()
+#     return df[['name', 'address', 'postal_code' ,'average_rate','nb_of_reviews', 'average_score_rank', 'last_score_rank', 'point']].sort_values(by=['average_score_rank'], ascending=True).head(x)
     
-def top_x_by_score_dynamic_rate(x):
-    df = create_personal_ranking_df()
-    return df[['name', 'address','postal_code','average_rate','nb_of_reviews', 'last_score', 'last_score_rank', 'average_score_rank']].sort_values(by=['last_score'], ascending=False).head(x)
+# def top_x_by_score_dynamic_rate(x):
+#     df = create_personal_ranking_df()
+#     return df[['name', 'address','postal_code','average_rate','nb_of_reviews', 'last_score', 'last_score_rank', 'average_score_rank', 'point']].sort_values(by=['last_score'], ascending=False).head(x)
 
 def personal_ranking_df_sorted_by_dynamic_rank():
     return create_personal_ranking_df().sort_values(by=['last_score'])
 
-def top_20_personal_ranking():
-    return personal_ranking_df_sorted_by_dynamic_rank().head(20)
+def top_x_personal_ranking(x):
+    return personal_ranking_df_sorted_by_dynamic_rank().head(x)
+
+def add_long_lat_to_df():
+    df = top_x_personal_ranking(20)
+    list_of_long = []
+    list_of_lat = []
+
+    for point in df['point']:
+        sub_str  = point.replace('(','').replace('(','')
+        list_of_long.append(sub_str.split(',')[0])
+        list_of_lat.append(sub_str.split(',')[1])
+
+
+    df['long'] = list_of_long
+    df['lat'] = list_of_lat
+
+    df['long'] = pd.to_numeric(df['long'])
+    df['lat'] = pd.to_numeric(df['lat'])
+
+    return df
+
