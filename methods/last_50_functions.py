@@ -29,7 +29,13 @@ def top_20_by_average_rate():
     df = create_last_50_df()
     df =  df.drop(['postal_code', 'city', 'average_rate'], axis=1)
     df = df[df['nb_of_reviews']>100]
-    return df[['name', 'comment_rate', 'address']].sort_values(by='comment_rate', ascending = False).head(20)
+    df = df[['name', 'comment_rate', 'address']].sort_values(by='comment_rate', ascending = False).head(20)
+    df.rename(columns={"name": "Nom", "comment_rate": "Note moyenne", "address" : "Adresse"}, inplace = True)
+    return df
+
 
 def top_5_district_by_comment_rate(df):
     return df.groupby(['postal_code'])['comment_rate'].mean().nlargest(5)
+
+
+top_20_by_average_rate()

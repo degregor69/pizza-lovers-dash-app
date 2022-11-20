@@ -11,3 +11,16 @@
 .footer{
     padding: 2px;
 }
+
+.Select-control {
+    background-color: rgba(0, 0, 0) !important;
+  }
+
+.Select-value-label {
+color: rgb(173, 173, 169) !important;
+}
+
+.Select-menu-outer {
+background-color:rgba(0, 0, 0) !important;
+color: rgb(173, 173, 169) !important;
+}

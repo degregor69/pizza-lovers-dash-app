@@ -37,7 +37,8 @@ fig_district_top_5_reviews.update_traces(marker_color="rgb(240,128,128)")
 
 fig_pie_chart_top_8_district = figure= px.pie(top_8_by_nb(df_graph), values=top_8_by_nb(df_graph).values, names=top_8_by_nb(df_graph).index,
     color_discrete_sequence=px.colors.sequential.Greys)
-fig_pie_chart_top_8_district.update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)', 'paper_bgcolor': 'rgba(0, 0, 0, 0)'})
+fig_pie_chart_top_8_district.update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)', 'paper_bgcolor': 'rgba(0, 0, 0, 0)'},
+    font=dict(color="white"))
 
 # -----------------
 # STATIC TABS
@@ -50,18 +51,18 @@ top_20_tab = dash_table.DataTable(top_20_by_average_rate(df).to_dict('records'),
     fixed_rows={'headers': True})
 
 # -----------------
-# DISPLAYING TAB
+# DISPLAY LAYOUT
 # -----------------
 
 dash.register_page(__name__)
 
 layout = html.Div(children=[
-    dbc.Row(html.H4(children='Tableau de bord général des pizzas parisiennes')),
+    dbc.Row(html.H4(children='Dashboard des pizzerias parisiennes')),
     dbc.Row([
         dbc.Col([
              html.Div([
-                html.H4(children="TOP 5 DES RESTAURANTS"),
-                html.H6(children='SELON LEUR NOTE'),
+                html.H6(children="TOP 5 DES RESTAURANTS"),
+                html.P(children='Par arrondissement, selon leur note.'),
                 html.Div(
                     dash.dcc.Dropdown(options= df_graph['postal_code'].sort_values().unique(), id="district-filter-1", value = df_graph['postal_code'].min())),
                     dcc.Graph(id='top-5-average-rate-by-district-graph-with-dd'),
@@ -70,8 +71,8 @@ layout = html.Div(children=[
 
         dbc.Col([
             html.Div([
-                html.H4(children='TOP 20 DES RESTAURANTS :'),
-                html.H6(children='SELON LEUR NOTE'),
+                html.H6(children='TOP 20 DES RESTAURANTS'),
+                html.P(children='Selon leur note, avec plus de 100 avis.'),
                 html.Div(top_20_tab
                 ),
             ])
@@ -79,8 +80,8 @@ layout = html.Div(children=[
 
         dbc.Col([
             html.Div([
-                html.H4(children='TOP 5 DES ARRONDISSEMENTS'),
-                html.H6(children='SELON LEUR NOTE'),
+                html.H6(children='TOP 5 DES ARRONDISSEMENTS'),
+                html.P(children='Selon leur note moyenne.'),
                 dcc.Graph(
                     figure= fig_district_top_5_rate,
                 ),
@@ -94,8 +95,8 @@ layout = html.Div(children=[
     dbc.Row([
         dbc.Col([
             html.Div([
-                html.H4(children="TOP 5"),
-                html.H6(children='SELON LE NOMBRE DE COMMENTAIRES'),
+                html.H6(children="TOP 5 DES RESTAURANTS"),
+                html.P(children='Par arrondissement, selon le nombre de commentaires.'),
                 html.Div(
                 dash.dcc.Dropdown(options= df_graph['postal_code'].sort_values().unique(), id="district-filter-2", value = df_graph['postal_code'].min())),
                 dcc.Graph(id='top-5-nb-reviews-by-district-graph-with-dd'),
@@ -105,8 +106,8 @@ layout = html.Div(children=[
         dbc.Col([
             html.Div([
                 html.Div([
-                html.H4(children='TOP 8 DES ARRONDISSEMENTS'),
-                html.H6(children='SELON LE NOMBRE DE RESTAURANTS'),
+                html.H6(children='TOP 8 DES ARRONDISSEMENTS'),
+                html.P(children='Selon le nombre de restaurants.'),
                 dcc.Graph(figure= fig_pie_chart_top_8_district),
             ])
             ])
@@ -114,8 +115,8 @@ layout = html.Div(children=[
 
         dbc.Col([
             html.Div([
-                html.H4(children='TOP 5 DES ARRONDISSEMENTS'),
-                html.H6(children='SELON LE NOMBRE DE COMMENTAIRES'),
+                html.H6(children='TOP 5 DES ARRONDISSEMENTS'),
+                html.P(children='Selon le nombre de commentaires.'),
                 dcc.Graph(
                     figure= fig_district_top_5_reviews
                 ),
@@ -124,6 +125,11 @@ layout = html.Div(children=[
     
     ], class_name='h-50'),
 ])
+
+# -----------
+# CALLBACKS
+# -----------s
+
 
 @callback(
     Output('top-5-average-rate-by-district-graph-with-dd', 'figure'),
