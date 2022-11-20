@@ -16,18 +16,51 @@ load_dotenv()
 geo_df = add_long_lat_to_df()
 load_dotenv()
 
-px.set_mapbox_access_token(os.getenv('MAPBOX_TOKEN'))
+# ------------------------
+# CONFIGURATION OF THE MAP
+# ------------------------
 
-fig = px.scatter_mapbox(geo_df, lat='long', lon='lat', zoom=11)
+mapbox_access_token = os.getenv('MAPBOX_TOKEN')
+
+fig = go.Figure(go.Scattermapbox(
+    lat = geo_df['long'],
+    lon = geo_df['lat'],
+    text = geo_df['name'],
+    mode = 'markers',
+    marker=go.scattermapbox.Marker(
+            size=15
+    ),
+))
+
+fig.update_layout(
+    autosize=True,
+    hovermode='closest',
+    mapbox=dict(
+        accesstoken=mapbox_access_token,
+        bearing=0,
+        center=dict(
+            lat=48.866667,
+            lon=2.333333
+        ),
+        pitch=0,
+        zoom=11.5,
+        style = 'mapbox://styles/mapbox/dark-v10',
+    ),
+    margin={"r":0,"t":0,"l":0,"b":0}
+)
+
+# ----------------
+# LAYOUT
+# ----------------
 
 
 layout = html.Div(children=[
-    html.H2(children='Nous développons des outils sur mesure !'),
-    html.H3(''),
-    html.H3(children="Les meilleures pizzerias par arrondissement selon notre algorithme"),
-    html.Div([
-            dcc.Graph(id="graph", figure=fig)
-    ], className= "mw-50")
-])
+    html.H6("Les 20 meilleures pizzerias, selon notre propre algorithme."),
+    html.P("Le tout, sur une carte."),
+    dcc.Graph(
+        figure= fig,
+        className='graph-background'
+    )
+], className='graph_background')
 
 
