@@ -58,8 +58,8 @@ def top_5_district_by_average_rate(df):
 def top_5_district_by_nb_reviews(df):
     return df.groupby(['postal_code'])['nb_of_reviews'].mean().nlargest(5)
 
-def top_8_by_nb(df):
-    return df.groupby(['postal_code'])['name'].count().nlargest(8)
+def top_by_nb(df):
+    return df.groupby(['postal_code'])['name'].count().sort_values()
 
 def top_20_by_average_rate(df):
     df =  df.drop(['postal_code', 'city'], axis=1)

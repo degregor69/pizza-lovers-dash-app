@@ -29,7 +29,7 @@ dash.register_page(__name__,
     name = 'Analyses récentes')
 
 layout = html.Div(children=[
-    html.H6(children="Nous analysons les derniers avis pour être au courant des dernières tendances."),
+    html.H6(children="Nous analysons les derniers avis pour être au courant des dernières tendances grâce à notre algorithme spécial."),
     html.Div([
         html.P(children=["Les avis récents ont-il changé leur note ? La réponse est OUI !"], style= {'margin-right': '5px'}),
         html.P(children=[str(have_changed_share()) + "% " + "ont changé de note avec leurs 50 derniers commentaires."], style= {'margin-right': '5px'}),
@@ -39,7 +39,7 @@ layout = html.Div(children=[
         dbc.Col([
                 html.Div([
                 html.H6(children="TOP 5 DES RESTAURANTS"),
-                html.P(children='Par arrondissement, selon leur note'),
+                html.P(children='Par arrondissement, selon leur dernière note moyenne.'),
                 html.Div(
                     dash.dcc.Dropdown(options= df['postal_code'].sort_values().unique(), id="last-50-district-filter-1", value = df['postal_code'].min())),
                     dcc.Graph(id='top-5-average-rate-last-50'),
@@ -61,7 +61,7 @@ layout = html.Div(children=[
         dbc.Col([
             html.Div([
                 html.H6(children='TOP 5 DES ARRONDISSEMENTS'),
-                html.P(children='Selon leur note.'),
+                html.P(children='Selon leur dernière note moyenne.'),
                 dcc.Graph(
                     figure= fig_district_top_5_comment_rate,
                 ),

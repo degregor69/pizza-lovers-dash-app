@@ -11,7 +11,7 @@ from methods.basic_data_functions import basic_data_df, \
                                         df_graph_top_5_by_nb_reviews, \
                                         top_5_district_by_average_rate, \
                                         top_5_district_by_nb_reviews, \
-                                        top_8_by_nb, \
+                                        top_by_nb, \
                                         top_20_by_average_rate
 
 df = create_city_and_postal_code_columns(clean_basic_data_df(basic_data_df()))
@@ -35,7 +35,7 @@ fig_district_top_5_reviews = px.bar(top_5_district_by_nb_reviews(df_graph),
 fig_district_top_5_reviews.update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)', 'paper_bgcolor': 'rgba(0, 0, 0, 0)'}, font_color="rgb(240,128,128)")
 fig_district_top_5_reviews.update_traces(marker_color="rgb(240,128,128)")
 
-fig_pie_chart_top_8_district = figure= px.pie(top_8_by_nb(df_graph), values=top_8_by_nb(df_graph).values, names=top_8_by_nb(df_graph).index,
+fig_pie_chart_top_8_district = figure= px.pie(top_by_nb(df_graph), values=top_by_nb(df_graph).values, names=top_by_nb(df_graph).index,
     color_discrete_sequence=px.colors.sequential.Greys)
 fig_pie_chart_top_8_district.update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)', 'paper_bgcolor': 'rgba(0, 0, 0, 0)'},
     font=dict(color="white"))
@@ -107,7 +107,7 @@ layout = html.Div(children=[
         dbc.Col([
             html.Div([
                 html.Div([
-                html.H6(children='TOP 8 DES ARRONDISSEMENTS'),
+                html.H6(children='TOP DES 20 ARRONDISSEMENTS DE PARIS'),
                 html.P(children='Selon le nombre de restaurants.'),
                 dcc.Graph(figure= fig_pie_chart_top_8_district),
             ])
