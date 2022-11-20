@@ -8,12 +8,11 @@ You can see the app [here](https://pizza-lovers-thp.herokuapp.com/index)
 To run the app, you need to install the following libraries, with conda install or pip install.
 
 ###### dash
-###### dash_bootstrap_components 
+###### dash-bootstrap-components 
 ###### pandas
 ###### numpy 
-###### plotly.express
 ###### dotenv 
-###### plotly.graph_objects
+###### plotly
 ###### os
 
 ## Running
