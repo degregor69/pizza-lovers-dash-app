@@ -9,7 +9,8 @@ from dash import html, dcc, callback, Input, Output
 from methods.personal_ranking_functions  import personal_ranking_df_sorted_by_dynamic_rank, add_long_lat_to_df
 from dotenv import load_dotenv
 
-dash.register_page(__name__)
+dash.register_page(__name__,
+    name = 'La solution LOVERS')
 
 df = personal_ranking_df_sorted_by_dynamic_rank()
 load_dotenv()
@@ -28,7 +29,8 @@ fig = go.Figure(go.Scattermapbox(
     text = geo_df['name'],
     mode = 'markers',
     marker=go.scattermapbox.Marker(
-            size=15
+            size=15,
+            color = ['rgb(240,128,128)',"rgb(144,238,144)", 'rgba(218,216,213,255)'] * 7
     ),
 ))
 

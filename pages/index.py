@@ -54,7 +54,8 @@ top_20_tab = dash_table.DataTable(top_20_by_average_rate(df).to_dict('records'),
 # DISPLAY LAYOUT
 # -----------------
 
-dash.register_page(__name__)
+dash.register_page(__name__,
+    name = 'Index')
 
 layout = html.Div(children=[
     dbc.Row(html.H4(children='Dashboard des pizzerias parisiennes')),

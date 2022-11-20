@@ -35,7 +35,9 @@ def top_20_by_average_rate():
 
 
 def top_5_district_by_comment_rate(df):
-    return df.groupby(['postal_code'])['comment_rate'].mean().nlargest(5)
+    df['postal_code'] = df['postal_code'].astype(str)
+    return (df.groupby(['postal_code'])['comment_rate'].mean().nlargest(5))
 
 
-top_20_by_average_rate()
+df = create_last_50_df()
+top_5_district_by_comment_rate(df)

@@ -13,7 +13,6 @@ df = create_last_50_df()
 # STATIC GRAPHS
 # -----------------
 
-
 fig_district_top_5_comment_rate = px.bar(top_5_district_by_comment_rate(df), 
     x= top_5_district_by_comment_rate(df).index , y= top_5_district_by_comment_rate(df).values, barmode="group",labels={"x": "Arrondissement", "y": "Note moyenne"},
     range_y=[top_5_district_by_comment_rate(df).min() - 0.2 ,top_5_district_by_comment_rate(df).max()+0.2], )
@@ -21,15 +20,21 @@ fig_district_top_5_comment_rate = px.bar(top_5_district_by_comment_rate(df),
 fig_district_top_5_comment_rate.update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)', 'paper_bgcolor': 'rgba(0, 0, 0, 0)'}, font_color="rgb(240,128,128)")
 fig_district_top_5_comment_rate.update_traces(marker_color="rgb(240,128,128)")
 
+# -----------------
+# LAYOUT
+# -----------------
 
-dash.register_page(__name__)
+
+dash.register_page(__name__,
+    name = 'Analyses récentes')
 
 layout = html.Div(children=[
     html.H6(children="Nous analysons les derniers avis pour être au courant des dernières tendances."),
-    html.P(children="Les avis récents ont-il changé leur note ? La réponse est OUI !"),
-    html.P(children=[str(have_changed_share()) + "% " + "ont changé de note avec leurs 50 derniers commentaires."]),
-    html.P(children=[str(show_repartition("Better")) + "% " + "ont une meilleure note, " +  str(show_repartition("Worse")) + "% " + "en ont une moins bonne."]),
-
+    html.Div([
+        html.P(children=["Les avis récents ont-il changé leur note ? La réponse est OUI !"], style= {'margin-right': '5px'}),
+        html.P(children=[str(have_changed_share()) + "% " + "ont changé de note avec leurs 50 derniers commentaires."], style= {'margin-right': '5px'}),
+        html.P(children=[str(show_repartition("Better")) + "% " + "ont une meilleure note, " +  str(show_repartition("Worse")) + "% " + "en ont une moins bonne."],style= {'margin-right': '5px'}),
+    ],className="d-flex flex-row"),
     dbc.Row([
         dbc.Col([
                 html.Div([

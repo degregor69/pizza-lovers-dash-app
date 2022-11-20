@@ -28,14 +28,6 @@ def create_personal_ranking_df():
     df['last_score_rank'] = df['last_score'].rank(method='min', ascending=False)
     return df
 
-# def top_x_by_score_static_rate(x):
-#     df = create_personal_ranking_df()
-#     return df[['name', 'address', 'postal_code' ,'average_rate','nb_of_reviews', 'average_score_rank', 'last_score_rank', 'point']].sort_values(by=['average_score_rank'], ascending=True).head(x)
-    
-# def top_x_by_score_dynamic_rate(x):
-#     df = create_personal_ranking_df()
-#     return df[['name', 'address','postal_code','average_rate','nb_of_reviews', 'last_score', 'last_score_rank', 'average_score_rank', 'point']].sort_values(by=['last_score'], ascending=False).head(x)
-
 def personal_ranking_df_sorted_by_dynamic_rank():
     return create_personal_ranking_df().sort_values(by=['last_score'])
 

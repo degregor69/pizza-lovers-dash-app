@@ -7,18 +7,20 @@ app = Dash(__name__, use_pages=True, external_stylesheets=[dbc.themes.CYBORG])
 
 app.layout = html.Div([
 	html.H1('Pizza Lovers'),
-    html.H6("Les pizzas les meilleures pour les visiteurs venus d'ailleurs"),
-    html.H6(children=["Nous avons actuellement " + str(nb_pizzerias()) + " pizzerias dans notre base."]),
-    html.H6(children=["Leur note moyenne est de : " + str(average_rate_pizzerias()) + " étoiles." ]),
+    html.H6(children=["Les pizzas les meilleures pour les visiteurs venus d'ailleurs"], style= {'margin-right': '5px'}),
+    html.Div([
+        html.H6(children=["Nous avons actuellement " + str(nb_pizzerias()) + " pizzerias dans notre base."], style= {'margin-right': '5px'}),
+        html.H6(children=["Leur note moyenne est de : " + str(average_rate_pizzerias()) + " étoiles." ], style= {'margin-right': '5px'}),
+    ],className="d-flex flex-row"),
     html.Div(
         [
             html.Div(
                 dcc.Link(
-                    f"{page['name']} - {page['path']}", href=page["relative_path"]
-                )
+                    f"{page['name']}", href=page["relative_path"], style={'color': 'rgb(173, 173, 169)'}
+                ), className= "btn btn-outline-dark", style= {'margin-right': '5px'}
             )
             for page in dash.page_registry.values()
-        ]
+        ], className="d-flex flex-row"
     ),
     html.Div(className='separation_div'),
 
