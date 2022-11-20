@@ -20,9 +20,12 @@ app.layout = html.Div([
             for page in dash.page_registry.values()
         ]
     ),
+    html.Div(className='separation_div'),
 
-	dash.page_container
-])
+	dash.page_container,
+
+    html.Footer('coucou', className='footer')
+], className='centering_div')
 
 if __name__ == '__main__':
 	app.run_server(debug=True)

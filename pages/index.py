@@ -58,6 +58,8 @@ layout = html.Div(children=[
     
     ], class_name='h-50'),
 
+    html.Div(className='separation_div'),
+    
     dbc.Row([
         dbc.Col([
             html.Div([
@@ -123,5 +125,4 @@ def update_figure_2(selected_district):
                 )
 
     fig_2.update_layout(transition_duration=500, yaxis_range=[filtered_df['nb_of_reviews'].min()-300  , filtered_df['nb_of_reviews'].max()+300])
-
     return fig_2

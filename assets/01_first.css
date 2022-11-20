@@ -1,0 +1,14 @@
+.centering_div {
+    margin: auto;
+    width: 97%;
+  }
+
+.separation_div{
+    border: 1px solid green;
+    height: 50px;
+}
+
+.footer{
+    border: 1px solid grey;
+    padding: 2px;
+}
