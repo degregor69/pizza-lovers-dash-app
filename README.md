@@ -3,6 +3,7 @@
 
 ## Production mode
 You can see the app [here](https://pizza-lovers-thp.herokuapp.com/index)
+It may take some time to charge. Please be patient :)
 
 ## Installation
 To run the app, you need to install the following libraries, with conda install or pip install.
