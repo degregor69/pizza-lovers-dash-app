@@ -6,7 +6,8 @@ You can see the app [here](https://pizza-lovers-thp.herokuapp.com/index)
 
 ## Installation
 To run the app, you need to install the following libraries, with conda install or pip install.
-###### dash
+
+###### dash
 ###### dash_bootstrap_components 
 ###### pandas
 ###### numpy 
