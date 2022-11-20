@@ -26,5 +26,4 @@ python3 app.py
 The web app will be opened on (http://127.0.0.1:8050/)
 
 ## Bonus
-All methods to clean, transform and test the data are available here
-[Github](https://github.com/degregor69/pizza-lovers)
+All methods to clean, transform and test the data are available [here](https://github.com/degregor69/pizza-lovers)
