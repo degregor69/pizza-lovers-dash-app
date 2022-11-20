@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np 
-import re
 
 def create_last_50_df():
     df = pd.read_csv("inputs_from_processing/comments_cleaned.csv", sep='|')

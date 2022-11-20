@@ -51,7 +51,7 @@ app.layout = html.Div([
 
 	dash.page_container,
     html.Div(className='separation_div'),
-    html.Footer('Bientôt, ici, un vrai footer, quand on aura un designer.', className='footer')
+    html.Footer('Bientôt, ici, un vrai footer, quand on aura un vrai designer.', className='footer')
 ], className='centering_div')
 
 if __name__ == '__main__':
