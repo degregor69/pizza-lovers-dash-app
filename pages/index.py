@@ -145,8 +145,8 @@ def update_figure_1(selected_district):
                  labels={
                      "name": "Nom",
                      "average_rate": "Note moyenne",
-                 }
-                 )
+                    }  
+            )
 
     fig_1.update_layout(transition_duration=500, yaxis_range=[filtered_df['average_rate'].min() - 0.2 ,5])
     fig_1.update_layout({'plot_bgcolor': 'rgba(0, 0, 0, 0)', 'paper_bgcolor': 'rgba(0, 0, 0, 0)'}, font_color="rgb(144,238,144)")

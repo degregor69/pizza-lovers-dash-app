@@ -3,9 +3,7 @@ from dash import html, dcc, callback, Input, Output, dash_table
 import dash_bootstrap_components as dbc
 import plotly.express as px
 
-from methods.basic_data_functions import df_graph_top_5_by_rating
-from methods.last_50_functions import have_changed_share, show_repartition, top_20_by_average_rate, create_last_50_df, top_5_district_by_comment_rate
-
+from methods.last_50_functions import have_changed_share, show_repartition, top_20_by_average_rate, create_last_50_df, top_5_district_by_comment_rate, top_5_restaurant_by_comment_rate
 # VARIABLES
 df = create_last_50_df()
 
@@ -77,10 +75,10 @@ layout = html.Div(children=[
 )
 
 def update_figure_1(selected_district):
-    filtered_df = df_graph_top_5_by_rating(df, selected_district)
+    filtered_df = top_5_restaurant_by_comment_rate(df, selected_district)
     
     fig_1 = px.bar(filtered_df, 
-                 x='name', y='average_rate', barmode="group",
+                 x='name', y='comment_rate', barmode="group",
                  labels={
                      "name": "Nom",
                      "average_rate": "Note moyenne",
