@@ -38,6 +38,9 @@ def top_5_district_by_comment_rate(df):
     df['postal_code'] = df['postal_code'].astype(str)
     return (df.groupby(['postal_code'])['comment_rate'].mean().nlargest(5))
 
+def top_5_restaurant_by_comment_rate(df, district_number):
+    return df[df['postal_code'] == district_number].sort_values(by=['comment_rate'], ascending=False).head(5)
+
 
 df = create_last_50_df()
 top_5_district_by_comment_rate(df)
