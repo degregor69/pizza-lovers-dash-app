@@ -6,15 +6,11 @@ You can see the app [here](https://pizza-lovers-thp.herokuapp.com/index)
 It may take some time to charge. Please be patient :)
 
 ## Installation
-To run the app, you need to install the following libraries, with conda install or pip install.
+To run the app, you need to install the required libraries with this Cline.
 
-###### dash
-###### dash-bootstrap-components 
-###### pandas
-###### numpy 
-###### dotenv 
-###### plotly
-###### os
+```
+pip install -r requirements.txt
+```
 
 ## Running
 You can clone this repo and run this command to laucnh the app:
